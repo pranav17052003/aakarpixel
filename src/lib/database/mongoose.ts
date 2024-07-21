@@ -23,8 +23,16 @@ export const connectToDatabase = async () => {
   cached.promise = 
     cached.promise || 
     mongoose.connect(MONGODB_URL, { 
-      dbName: 'imaginify', bufferCommands: false 
+      dbName: 'test', bufferCommands: false 
     })
+
+    try {
+      cached.conn = await cached.promise;
+      console.log('Successfully connected to MongoDB Atlas');
+    } catch (error) {
+      console.error('Error connecting to MongoDB Atlas:', error);
+      throw error;
+    }
 
   cached.conn = await cached.promise;
 
